@@ -76,7 +76,7 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     // Prepare the FFmpeg command
     //$ffmpegPath = '/opt/homebrew/bin/ffmpeg';
     //$command = "$ffmpegPath -f lavfi -i smptebars=size=$size:rate=59.94 -f lavfi -i sine=frequency=1000:sample_rate=48000 -shortest -vf \"drawtext=text='$text':fontcolor=white:fontsize=200:x=(w-text_w)/2:y=(h-text_h)/5\" -t $duration -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
-    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -vf \"drawtext=text='$text':fontcolor=white:fontsize=240:x=(w-text_w)/2:y=(h-text_h)/3\" -t $duration -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
+    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -vf \"drawtext=text='$text':fontcolor=white:box=1:boxcolor=black:boxborderw=10|20:fontsize=240:x=(w-text_w)/2:y=(h-text_h)/3\" -t $duration -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
 
 
     // Execute the FFmpeg command
