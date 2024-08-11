@@ -1,7 +1,16 @@
-Custom creates and plays / downloads Colorbars videos in different formats with bar tone.
+This will give you a video with SMPTE color bars and test tone.
 <br>
+This is a classic test pattern that includes vertical bars of various colors and shades
 <br>
-Work in progress.
+a 1 kHz tone at a 48 kHz sample rate, which is standard for broadcast audio.
 <br>
+The default resolution is 1080p Full HD 16:9 1920 x 1080 and the frame rate is 59.94 fps, which is common for broadcast video.
 <br>
-<img width="734" alt="image" src="https://github.com/user-attachments/assets/5c2261c1-9b3d-409e-a6c1-8757c00117d3">
+Optional resolutions:
+<ul>
+<li>720p HD 1280 x 720</li>
+<li>1080p Full HD Vertical 9:16 1080 x 1920</li>
+</ul>
+Optional text overlay centered in the top fifth.
+
+
