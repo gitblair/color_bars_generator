@@ -9,14 +9,13 @@ function custom_log($message) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //$size = isset($_POST['size']) ? htmlspecialchars($_POST['size']) : '1280x720';
-    $duration = isset($_POST['duration']) ? (int)$_POST['duration'] : '10';
+    $duration = isset($_POST['duration']) ? (int)$_POST['duration'] : '2';
     $text = isset($_POST['text']) ? htmlspecialchars($_POST['text']) : 'TEST';
 
     // Default values
-$audiocommand = '';
-$stylecommand = '';
-$resolutioncommand = '';
+    $audiocommand = '';
+    $stylecommand = '';
+    $resolutioncommand = '';
 
 $audio = isset($_POST['audio']) ? $_POST['audio'] : 'tone';
 if ($audio === "tone") // Use === for a strict comparison
@@ -53,7 +52,6 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
 }
 
 
-
     // Validate parameters
     if (!preg_match('/^\d+x\d+$/', $resolution)) {
         echo json_encode(['success' => false, 'message' => 'Invalid size parameter.']);
@@ -68,16 +66,12 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     $downloadFilename = "{$style}_{$resolution}_{$duration}secs_{$audio}.mp4";
     $tempdir = sys_get_temp_dir();
 
+
     // Create a temporary file with a unique name
     $tempFile = tempnam($tempdir, 'SMPTE_color_bars_') . '.mp4';
 
-
-
     // Prepare the FFmpeg command
-    //$ffmpegPath = '/opt/homebrew/bin/ffmpeg';
-    //$command = "$ffmpegPath -f lavfi -i smptebars=size=$size:rate=59.94 -f lavfi -i sine=frequency=1000:sample_rate=48000 -shortest -vf \"drawtext=text='$text':fontcolor=white:fontsize=200:x=(w-text_w)/2:y=(h-text_h)/5\" -t $duration -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
-    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -vf \"drawtext=text='$text':fontcolor=white:box=1:boxcolor=black:boxborderw=10|20:fontsize=240:x=(w-text_w)/2:y=(h-text_h)/3\" -t $duration -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
-
+    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -t $duration -vf \"drawtext=text='$text':fontcolor=white:fontsize=72:box=1:boxcolor=black@0.5:boxborderw=10:x=(w-text_w)/2:y=(h-text_h)/3\" -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
 
     // Execute the FFmpeg command
     exec($command, $output, $return_var);
@@ -90,7 +84,7 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     }
 
     // Log successful video creation
-    custom_log("Successfully created video: $downloadFilename");
+    //custom_log("Successfully created video: $downloadFilename");
 
     // Serve the file directly to the browser
     header('Content-Description: File Transfer');
@@ -100,7 +94,6 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($tempFile));
-    header('Content-Transfer-Encoding: binary');
 
     // Output the file content
     readfile($tempFile);

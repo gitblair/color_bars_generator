@@ -36,9 +36,9 @@
  <div class="mb-3">
     <label for="resolution" class="form-label">Resolution</label>
     <select class="form-select" id="resolution" name="resolution" required>
-      <option value="1920x1080">1080p Full HD 16:9 1920 x 1080 59.94fps</option>
+      <option value="1920x1080" disabled readonly>1080p Full HD 16:9 1920 x 1080 59.94fps</option>
       <option value="1280x720">720p HD 1280 x 720 59.94fps</option>
-      <option value="1080x1920">1080p Full HD Vertical 9:16 1080 x 1920 59.94fps</option>
+      <option value="1080x1920" disabled readonly>1080p Full HD Vertical 9:16 1080 x 1920 59.94fps</option>
     </select>
  </div>
 
@@ -51,6 +51,7 @@
       <option value="5">5 seconds</option>
       <option value="3">3 seconds</option>
       <option value="2">2 seconds</option>
+      <option value="1">1 second</option>
     </select>
  </div>
 
