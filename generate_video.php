@@ -20,7 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $audio = isset($_POST['audio']) ? $_POST['audio'] : 'tone';
 if ($audio === "tone") // Use === for a strict comparison
 {
-  $audiocommand = '-f lavfi -i sine=frequency=1000:sample_rate=48000 -shortest';
+  $audiocommand = '-f lavfi -i sine=frequency=1000:r=48000';
+}
+else
+{
+  $audiocommand = '-f lavfi -i anullsrc=r=48000';
 }
 
 $style = isset($_POST['style']) ? $_POST['style'] : 'SMPTE';
@@ -71,7 +75,7 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     $tempFile = tempnam($tempdir, 'SMPTE_color_bars_') . '.mp4';
 
     // Prepare the FFmpeg command
-    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -t $duration -vf \"drawtext=text='$text':fontcolor=white:fontsize=72:box=1:boxcolor=black@0.5:boxborderw=10:x=(w-text_w)/2:y=(h-text_h)/3\" -c:v libx264 -pix_fmt yuv420p -c:a aac -strict experimental $tempFile 2>&1";
+    $command = "$ffmpegPath $stylecommand$resolutioncommand $audiocommand -t $duration -vf \"drawtext=text='$text':fontcolor=white:fontsize=72:box=1:boxcolor=black@0.5:boxborderw=10:x=(w-text_w)/2:y=(h-text_h)/3\" -c:v libx264 -pix_fmt yuv420p -c:a aac -ac 2 -strict experimental $tempFile 2>&1";
 
     // Execute the FFmpeg command
     exec($command, $output, $return_var);
