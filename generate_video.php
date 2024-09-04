@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 require "config.php";
 
 // Function to log messages to a custom log file
+date_default_timezone_set('America/New_York'); // Adjust based on your desired timezone
 function custom_log($message) {
     $logfile = 'log.txt';
     file_put_contents($logfile, date("Y-m-d H:i:s") . " - " . $message . "\n", FILE_APPEND);
@@ -88,7 +89,7 @@ elseif ($resolution === "1080x1920") // Changed else to elseif
     }
 
     // Log successful video creation
-    //custom_log("Successfully created video: $downloadFilename");
+    custom_log("Successfully created video: $downloadFilename");
 
     // Serve the file directly to the browser
     header('Content-Description: File Transfer');
